@@ -1,4 +1,8 @@
-# featherstore
+<p align="center">
+  <img src="featherstore.svg" height="300" alt="featherstore">  
+</p>
+
+# featherstore [![Build Status](https://travis-ci.com/ApolloStationIO/featherstore.svg?branch=master)](https://travis-ci.com/ApolloStationIO/featherstore)
 
 ---
 
