@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://imgur.com/l67acQe" height="300" alt="featherstore">  
+  <img src="https://i.imgur.com/l67acQe.png" height="300" alt="featherstore">  
 </p>
 
 # featherstore [![Build Status](https://travis-ci.com/ApolloStationIO/featherstore.svg?branch=master)](https://travis-ci.com/ApolloStationIO/featherstore)
