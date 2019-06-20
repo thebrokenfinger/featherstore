@@ -15,7 +15,8 @@
     "lint": "xo",
     "test": "xo && jest --coverage",
     "test:js": "jest",
-    "test:js:watch": "jest --watch"
+    "test:js:watch": "jest --watch",
+    "release": "npm run build -s && npm run bump && git push --follow-tags origin master && npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

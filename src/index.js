@@ -76,11 +76,12 @@ export default function featherstore(options = {}) {
     },
 
     clear(key = null) {
-      if (key !== null) {
-        $opts.storage.removeItem(getPrefixedKey(key));
-      } else {
+      if (key === null) {
         $opts.storage.clear();
+      } else {
+        $opts.storage.removeItem(getPrefixedKey(key));
       }
+
       return true;
     },
 

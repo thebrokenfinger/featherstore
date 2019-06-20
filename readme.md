@@ -1,16 +1,12 @@
 <p align="center">
-  <img src="featherstore.svg" height="300" alt="featherstore">  
+  <img src="https://imgur.com/l67acQe" height="300" alt="featherstore">  
 </p>
 
 # featherstore [![Build Status](https://travis-ci.com/ApolloStationIO/featherstore.svg?branch=master)](https://travis-ci.com/ApolloStationIO/featherstore)
 
----
-
 > Zero-config, 600B, cross-browser storage for JavaScript apps
 
 ## Installation
-
----
 
 `npm i featherstore --save`
 
