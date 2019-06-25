@@ -1,6 +1,6 @@
 {
   "name": "featherstore",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zero-config, 600B, cross-browser storage for JavaScript apps",
   "source": "./src/index.js",
   "main": "dist/featherstore.js",
@@ -16,7 +16,7 @@
     "test": "xo && jest --coverage",
     "test:js": "jest",
     "test:js:watch": "jest --watch",
-    "release": "npm run build -s && npm run bump && git push --follow-tags origin master && npm publish"
+    "release": "npm run bundle -s && npm run bump && git push --follow-tags origin master && npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -26,9 +26,11 @@
     "babel-jest": "^24.8.0",
     "babel-polyfill": "^6.26.0",
     "documentation": "^11.0.1",
+    "featherstore-plugin-memstore": "0.1.11",
     "jest": "^24.8.0",
     "jest-localstorage-mock": "^2.4.0",
     "microbundle": "^0.11.0",
+    "standard-version": "^6.0.1",
     "xo": "^0.24.0"
   },
   "xo": {
