@@ -18,7 +18,7 @@ export default function featherstore(options = {}) {
   }
 
   // Options to be used by library
-  const $opts = Object.freeze(
+  const $opts = (Object.freeze || Object)(
     Object.assign({}, defaultOpts, options, {
       storage
     })
@@ -30,7 +30,7 @@ export default function featherstore(options = {}) {
   };
 
   const getUnprefixedKey = function(key) {
-    return key.replace($opts.namespace, '');
+    return key.replace(new RegExp(`^${$opts.namespace}`), '');
   };
 
   const stringifyJSON = JSON.stringify;

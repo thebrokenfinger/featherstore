@@ -72,6 +72,10 @@ store.clear('key');
 store.clear();
 ```
 
+## [memstore](https://github.com/ApolloStationIO/featherstore-plugin-memstore)
+
+You can use an in-memory store (in case you would not like to use `localStorage` or `sessionStorage`). [memstore](https://github.com/ApolloStationIO/featherstore-plugin-memstore) helps you do that with just **200B** of additional weight.
+
 ## License
 
 Copyright © MIT
