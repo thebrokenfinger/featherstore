@@ -1,6 +1,6 @@
-import featherstore from '../src'
+import featherstore, { type Featherstore } from '../src/index'
 
-let store
+let store: Featherstore
 
 beforeEach(() => {
   store = featherstore()
@@ -24,15 +24,14 @@ describe('featherstore#set', () => {
     expect(store.get('key')).toBe('value')
   })
 
-  it('should save key-value for a time explicitly provided', async done => {
+  it('should save key-value for a time explicitly provided', async () => {
     store.set('key', 'value for 1sec', 1000)
-    await new Promise(resolve => {
+    await new Promise<void>(resolve => {
       setTimeout(() => {
         resolve()
       }, 1000)
     })
-    expect(store.get('key')).toBe(null)
-    done()
+    expect(store.get('key')).toBe(undefined)
   })
 })
 
@@ -78,7 +77,7 @@ describe('featherstore#clear', () => {
     store.set('string', 'featherstore')
     store.clear('number')
 
-    expect(store.get('number')).toBe(null)
+    expect(store.get('number')).toBe(undefined)
     expect(store.get('string')).toBe('featherstore')
   })
 })

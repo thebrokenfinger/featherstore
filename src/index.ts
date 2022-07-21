@@ -1,9 +1,24 @@
-/** Featherstore: Zero-config, 500B, cross-browser storage for JavaScript apps
- *  @name featherstore
- *  @param { object } options An object with properties `namespace`, `storage` and `ttl` (time to live)
- *  @returns { Featherstore } Returns a store with methods `get`, `set`, `has`, `keys` and `clear`
+/**
+ * Featherstore: Zero-config, 500B, cross-browser storage for JavaScript apps
  */
-export default function featherstore(options = {}) {
+
+export type FeatherstoreOptions = {
+  namespace?: string
+  storage?: 'local' | 'session' | Storage
+  ttl?: number
+}
+
+export type Featherstore = {
+  get: <T>(key: string, fallback?: T | undefined) => unknown
+  set: (key: string, value: unknown, ttl?: number) => unknown
+  has: (key: string) => boolean
+  keys: () => string[]
+  clear: (key?: string) => boolean
+}
+
+export default function featherstore(
+  options: FeatherstoreOptions = {}
+): Featherstore {
   const defaultOptions = {
     namespace: '__FEATHERSTORE__',
     storage: window.localStorage,
@@ -11,7 +26,7 @@ export default function featherstore(options = {}) {
   }
 
   // Choosing storage to be used
-  let storage =
+  let storage: Storage =
     options.storage === 'session' ? window.sessionStorage : window.localStorage
   if (typeof options.storage === 'object') {
     storage = options.storage
@@ -25,16 +40,16 @@ export default function featherstore(options = {}) {
   )
 
   // Utils
-  const getPrefixedKey = function (key) {
+  const getPrefixedKey = function (key: string) {
     return `${$options.namespace}${key}`
   }
 
-  const getUnprefixedKey = function (key) {
+  const getUnprefixedKey = function (key: string) {
     return key.replace(new RegExp(`^${$options.namespace}`), '')
   }
 
-  const stringifyJSON = JSON.stringify
-  const parseJSON = JSON.parse
+  const stringifyJson = JSON.stringify
+  const parseJson = JSON.parse
 
   // Return the store
   return {
@@ -44,19 +59,19 @@ export default function featherstore(options = {}) {
         ttl: Date.now() + ttl,
         data,
       }
-      $options.storage.setItem(prefixedKey, stringifyJSON(value))
+      $options.storage.setItem(prefixedKey, stringifyJson(value))
       return data
     },
 
-    get(key, fallback = null) {
+    get(key, fallback) {
       try {
         const prefixedKey = getPrefixedKey(key)
-        const value = parseJSON($options.storage.getItem(prefixedKey))
+        const value = parseJson($options.storage.getItem(prefixedKey) ?? '')
 
-        if (value.data !== null) {
+        if (value.data !== undefined) {
           if ('ttl' in value && Number(value.ttl) < Date.now()) {
             $options.storage.removeItem(prefixedKey)
-            return null
+            return
           }
 
           if ('data' in value) {
@@ -74,8 +89,8 @@ export default function featherstore(options = {}) {
       }
     },
 
-    clear(key = null) {
-      if (key === null) {
+    clear(key) {
+      if (key === undefined) {
         $options.storage.clear()
       } else {
         $options.storage.removeItem(getPrefixedKey(key))

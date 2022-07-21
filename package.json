@@ -13,7 +13,7 @@
     "bump": "standard-version",
     "bundle": "microbundle",
     "lint": "npm run format && xo --prettier",
-    "format": "prettier --write '{src,test}/**/*.js'",
+    "format": "prettier --write '{src,test}/**/*.ts'",
     "test": "npm run lint && jest --coverage",
     "test:js": "jest",
     "test:js:watch": "jest --watch",
@@ -23,7 +23,9 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-stage-3": "^7.0.0",
+    "@babel/preset-typescript": "^7.18.6",
     "@babel/register": "^7.4.4",
+    "@types/jest": "^28.1.6",
     "babel-jest": "^24.8.0",
     "babel-polyfill": "^6.26.0",
     "documentation": "^11.0.1",
@@ -34,6 +36,8 @@
     "microbundle": "^0.15.0",
     "prettier": "^2.7.1",
     "standard-version": "^6.0.1",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4",
     "xo": "^0.50.0"
   },
   "xo": {
@@ -44,6 +48,10 @@
     "globals": [
       "window"
     ],
+    "rules": {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-return": "off"
+    },
     "ignores": [
       "test",
       "jest.config.js"
