@@ -4,94 +4,93 @@
  *  @returns { Featherstore } Returns a store with methods `get`, `set`, `has`, `keys` and `clear`
  */
 export default function featherstore(options = {}) {
-  const defaultOpts = {
+  const defaultOptions = {
     namespace: '__FEATHERSTORE__',
     storage: window.localStorage,
-    ttl: 60 * 60 * 24 * 1000 // One day
-  };
+    ttl: 60 * 60 * 24 * 1000, // One day
+  }
 
   // Choosing storage to be used
   let storage =
-    options.storage === 'session' ? window.sessionStorage : window.localStorage;
+    options.storage === 'session' ? window.sessionStorage : window.localStorage
   if (typeof options.storage === 'object') {
-    storage = options.storage;
+    storage = options.storage
   }
 
   // Options to be used by library
-  const $opts = (Object.freeze || Object)(
-    Object.assign({}, defaultOpts, options, {
-      storage
+  const $options = (Object.freeze || Object)(
+    Object.assign({}, defaultOptions, options, {
+      storage,
     })
-  );
+  )
 
   // Utils
-  const getPrefixedKey = function(key) {
-    return `${$opts.namespace}${key}`;
-  };
+  const getPrefixedKey = function (key) {
+    return `${$options.namespace}${key}`
+  }
 
-  const getUnprefixedKey = function(key) {
-    return key.replace(new RegExp(`^${$opts.namespace}`), '');
-  };
+  const getUnprefixedKey = function (key) {
+    return key.replace(new RegExp(`^${$options.namespace}`), '')
+  }
 
-  const stringifyJSON = JSON.stringify;
-  const parseJSON = JSON.parse;
+  const stringifyJSON = JSON.stringify
+  const parseJSON = JSON.parse
 
   // Return the store
   return {
-    set(key, data, ttl = $opts.ttl) {
-      const prefixedKey = getPrefixedKey(key);
+    set(key, data, ttl = $options.ttl) {
+      const prefixedKey = getPrefixedKey(key)
       const value = {
         ttl: Date.now() + ttl,
-        data
-      };
-      $opts.storage.setItem(prefixedKey, stringifyJSON(value));
-      return data;
+        data,
+      }
+      $options.storage.setItem(prefixedKey, stringifyJSON(value))
+      return data
     },
 
     get(key, fallback = null) {
       try {
-        const prefixedKey = getPrefixedKey(key);
-        const value = parseJSON($opts.storage.getItem(prefixedKey));
+        const prefixedKey = getPrefixedKey(key)
+        const value = parseJSON($options.storage.getItem(prefixedKey))
 
         if (value.data !== null) {
           if ('ttl' in value && Number(value.ttl) < Date.now()) {
-            $opts.storage.removeItem(prefixedKey);
-            return null;
+            $options.storage.removeItem(prefixedKey)
+            return null
           }
 
           if ('data' in value) {
-            return value.data;
+            return value.data
           }
 
-          return fallback;
+          return fallback
         }
-      } catch (error) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.error(
-            `Featherstore [get]: Can't find any value for '${key}' in the store.`
-          );
-          return fallback;
-        }
+      } catch {
+        console.error(
+          `Featherstore [get]: Can't find any value for '${key}' in the store.`
+        )
+
+        return fallback
       }
     },
 
     clear(key = null) {
       if (key === null) {
-        $opts.storage.clear();
+        $options.storage.clear()
       } else {
-        $opts.storage.removeItem(getPrefixedKey(key));
+        $options.storage.removeItem(getPrefixedKey(key))
       }
 
-      return true;
+      return true
     },
 
     keys() {
-      return Object.keys($opts.storage).map(getUnprefixedKey);
+      return Object.keys($options.storage).map(key => getUnprefixedKey(key))
     },
 
     has(key) {
-      const prefixedKey = getPrefixedKey(key);
-      return prefixedKey in $opts.storage;
-    }
-  };
+      const prefixedKey = getPrefixedKey(key)
+      return prefixedKey in $options.storage
+    },
+  }
 }
