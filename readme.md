@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://i.imgur.com/l67acQe.png" height="300" alt="featherstore">  
+  <img src="https://i.imgur.com/zBOHP46t.png" height="240" alt="featherstore">  
 </p>
 
-# featherstore [![Build Status](https://travis-ci.com/ApolloStationIO/featherstore.svg?branch=master)](https://travis-ci.com/ApolloStationIO/featherstore)
+# featherstore [![Build Status](https://travis-ci.com/thebrokenfinger/featherstore.svg?branch=main)](https://travis-ci.com/thebrokenfinger/featherstore)
 
 > Zero-config, 600B, cross-browser storage for JavaScript apps
 
@@ -72,9 +72,9 @@ store.clear('key');
 store.clear();
 ```
 
-## [memstore](https://github.com/ApolloStationIO/featherstore-plugin-memstore)
+## [memstore](https://npm.im/featherstore-plugin-memstore)
 
-You can use an in-memory store (in case you would not like to use `localStorage` or `sessionStorage`). [memstore](https://github.com/ApolloStationIO/featherstore-plugin-memstore) helps you do that with just **200B** of additional weight.
+You can use an in-memory store (in case you would not like to use `localStorage` or `sessionStorage`). [memstore](https://npm.im/featherstore-plugin-memstore) helps you do that with just **200B** of additional weight.
 
 ## License
 
